@@ -22,7 +22,7 @@
   [
     {
       "name": "MCCI LoRaWAN LMIC library",
-      "version": "https://github.com/mcci-catena/arduino-lmic.git",
+      "version": "https://github.com/olicooper/arduino-lmic.git@v4.0.0-pr1",
       "authors": ["Matthijs Kooijman <matthijs@stdin.nl>", "Terry Moore <tmm@mcci.com>"]
     },
     {
