@@ -143,6 +143,8 @@ public:
                         ;
                 }
 
+        static bool setFrequencyRaw(uint8_t *pFreq, unsigned iCh, uint32_t frequency);
+
         /*
         || provisioning things:
         */
@@ -358,16 +360,12 @@ public:
                 ///
                 bool setFrequency(uint8_t (&freq)[nCh * 3], unsigned iCh, uint32_t frequency)
                         {
+                        // check the template parameter while it's in scope.
                         if (iCh > nCh)
                                 return false;
-                        const uint32_t reducedFreq = frequency / 100;
-                        if (reducedFreq > 0xFFFFFFu)
-                                return false;
 
-                        auto const chPtr = freq + iCh * 3;
-                        chPtr[0] = uint8_t(reducedFreq >> 16);
-                        chPtr[1] = uint8_t(reducedFreq >> 8);
-                        chPtr[2] = uint8_t(reducedFreq);
+                        // call an external function to make it harder for optimizer to do the wrong thing (for test)
+                        return Arduino_LoRaWAN::setFrequencyRaw(freq, iCh, frequency);
                         }
 
                 /// \brief clear all entries in the channel table.

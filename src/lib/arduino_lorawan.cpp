@@ -65,3 +65,18 @@ Revision history:
 Arduino_LoRaWAN::Arduino_LoRaWAN()
         {
         }
+
+// this is the former body of setFrequency(), with &freq changed to pFreq
+/* static */
+bool Arduino_LoRaWAN::setFrequencyRaw(uint8_t *pFreq, unsigned iCh, uint32_t frequency)
+		{
+		const uint32_t reducedFreq = frequency / 100;
+		if (reducedFreq > 0xFFFFFFu)
+				return false;
+
+		auto const chPtr = pFreq + iCh * 3;
+		chPtr[0] = uint8_t(reducedFreq >> 16);
+		chPtr[1] = uint8_t(reducedFreq >> 8);
+		chPtr[2] = uint8_t(reducedFreq);
+		}
+
